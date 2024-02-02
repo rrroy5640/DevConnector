@@ -1,0 +1,13 @@
+{
+  "folders": [
+	{
+		"path": "../.."
+	},
+	{
+		"path": "../../../../../Downloads/devconnector_theme_sass-master/dist"
+	}
+],
+  "settings": {
+    "liveServer.settings.multiRootWorkspaceName": "dist"
+  }
+}
