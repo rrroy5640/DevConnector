@@ -1,37 +1,36 @@
-import React, { useState } from "react";
-import axios from "axios";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import useAuth from "../../useAuth";
+import { useSelector } from "react-redux";
 
 export const Login = () => {
   const [formData, setFormData] = useState({
-    name: "",
     email: "",
     password: "",
-    password2: "",
   });
 
+  const { login } = useAuth();
+
   const { email, password } = formData;
+
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+
+  const navigate = useNavigate();
 
   function onChange(e) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   }
 
-  async function onSubmit(e){
+  async function onSubmit(e) {
     e.preventDefault();
-      try {
-        const config = {
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        }
-        const user = {email, password};
-        const body = JSON.stringify(user);
-        const res = await axios.post('/api/auth', body, config); // proxy in package.json
-        console.log(res.data);
-      } catch (error) {
-        console.error(error.response.data);
-      }
+    login({ email, password });
+  }
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/dashboard");
     }
+  }, [isAuthenticated, navigate]);
 
   return (
     <>
@@ -45,6 +44,7 @@ export const Login = () => {
             value={email}
             name="email"
             onChange={(e) => onChange(e)}
+            required
           />
         </div>
         <div className="form-group">
@@ -54,13 +54,14 @@ export const Login = () => {
             name="password"
             value={password}
             onChange={(e) => onChange(e)}
-            minlength="6"
+            minLength="6"
+            required
           />
         </div>
         <input type="submit" value="Login" className="btn btn-primary" />
       </form>
       <p className="my-1">
-        Don't have an account? 
+        Don't have an account?
         <Link to="/register"> Sign Up</Link>
       </p>
     </>

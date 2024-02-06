@@ -156,6 +156,28 @@ img {
   color: #333;
 }
 
+/* button to close alert */
+.close {
+  color: #000;
+  opacity: 0.6;
+  font-size: 1.3rem;
+  font-weight: bold;
+  line-height: 1;
+  position: relative;
+  top: -2px;
+  right: 0px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  -webkit-appearance: none;
+  float: right;
+  font-size: 1.5rem;
+  line-height: 1;
+  text-shadow: 0 1px 0 #fff;
+  filter: alpha(opacity=20);
+  opacity: 0.2;
+}
+
 .btn-primary,
 .bg-primary,
 .badge-primary,
@@ -487,6 +509,8 @@ button {
   font-size: 0.8rem;
   margin-bottom: 0.5rem;
 }
+
+
 
 /* Mobile Styles */
 @media (max-width: 700px) {

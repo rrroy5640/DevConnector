@@ -1,26 +1,26 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { v4 as uuid } from "uuid";
+
 const initialState = [
-  {
-    id: 0,
-    msg: "Welcome to the app!",
-    alertType: "success",
-  },
-  {
-    id: 1,
-    msg: "Please log in.",
-    alertType: "info",
-  },
-  {
-    id: 2,
-    msg: "Invalid credentials.",
-    alertType: "danger",
-  },
-  {
-    id: 3,
-    msg: "You have successfully logged out.",
-    alertType: "success",
-  },
+  // {
+  //   id: 0,
+  //   msg: "Welcome to the app!",
+  //   alertType: "success",
+  // },
+  // {
+  //   id: 1,
+  //   msg: "Please log in.",
+  //   alertType: "info",
+  // },
+  // {
+  //   id: 2,
+  //   msg: "Invalid credentials.",
+  //   alertType: "danger",
+  // },
+  // {
+  //   id: 3,
+  //   msg: "You have successfully logged out.",
+  //   alertType: "success",
+  // },
 ];
 
 const alertSlice = createSlice({
@@ -28,8 +28,7 @@ const alertSlice = createSlice({
   initialState,
   reducers: {
     setAlert: (state, action) => {
-      const id = uuid();
-      const newAlert = { id, ...action.payload };
+      const newAlert = action.payload;
       state.push(newAlert);
     },
     removeAlert: (state, action) => {

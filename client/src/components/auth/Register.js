@@ -1,8 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import useAlert from "../../useAlert";
+import useAuth from "../../useAuth";
+import { useSelector } from "react-redux";
 
 export const Register = () => {
+  const { showAlert, hideAlert } = useAlert();
+  const { register, getUser } = useAuth();
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -10,33 +16,32 @@ export const Register = () => {
     password2: "",
   });
 
+  const navigate = useNavigate();
+
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+
   const { name, email, password, password2 } = formData;
 
   function onChange(e) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   }
 
-  async function onSubmit(e){
+  async function onSubmit(e) {
     e.preventDefault();
-    if(password !== password2){
-      console.log('Passwords do not match')
+    if (password !== password2) {
+      console.log("Passwords do not match");
+      showAlert({ msg: "Passwords do not match", alertType: "danger" });
     } else {
-      const newUser = {name, email, password};
+      register({ name, email, password });
 
-      try {
-        const config = {
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        }
-        const body = JSON.stringify(newUser);
-        const res = await axios.post('/api/users', body, config); // proxy in package.json
-        console.log(res.data);
-      } catch (error) {
-        console.error(error.response.data);
-      }
     }
   }
+
+  useEffect(()=>{
+    if(isAuthenticated){
+      navigate("/dashboard");
+    }
+  }, [isAuthenticated, navigate])
 
   return (
     <>
@@ -75,7 +80,7 @@ export const Register = () => {
             name="password"
             value={password}
             onChange={(e) => onChange(e)}
-            minlength="6"
+            minLength="6"
           />
         </div>
         <div className="form-group">
@@ -85,13 +90,13 @@ export const Register = () => {
             name="password2"
             value={password2}
             onChange={(e) => onChange(e)}
-            minlength="6"
+            minLength="6"
           />
         </div>
         <input type="submit" value="Register" className="btn btn-primary" />
       </form>
       <p className="my-1">
-        Already have an account? 
+        Already have an account?
         <Link to="/login">Sign In</Link>
       </p>
     </>
