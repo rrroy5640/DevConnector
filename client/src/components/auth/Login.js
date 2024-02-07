@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
-import useAuth from "../../useAuth";
+import useAuth from "../../hooks/useAuth";
 import { useSelector } from "react-redux";
 
 export const Login = () => {

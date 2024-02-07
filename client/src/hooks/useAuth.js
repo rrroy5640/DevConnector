@@ -7,11 +7,11 @@ import {
   authError,
   loginSuccess,
   loginFail,
-  logoutSuccess
-} from "./redux/authSlices";
+  logoutSuccess,
+} from "../redux/authSlices";
 import useAlert from "./useAlert";
 import { set } from "mongoose";
-import setAuthToken from "./utils/setAuthToken";
+import setAuthToken from "../utils/setAuthToken";
 
 const useAuth = () => {
   const dispatch = useDispatch();

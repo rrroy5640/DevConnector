@@ -1,4 +1,4 @@
-import { setAlert, removeAlert } from "./redux/alertSlices";
+import { setAlert, removeAlert } from "../redux/alertSlices";
 import { useDispatch } from "react-redux";
 import { v4 as uuid } from "uuid";
 

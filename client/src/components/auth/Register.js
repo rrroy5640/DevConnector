@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import useAlert from "../../useAlert";
-import useAuth from "../../useAuth";
+import useAlert from "../../hooks/useAlert";
+import useAuth from "../../hooks/useAuth";
 import { useSelector } from "react-redux";
 
 export const Register = () => {
@@ -33,15 +33,14 @@ export const Register = () => {
       showAlert({ msg: "Passwords do not match", alertType: "danger" });
     } else {
       register({ name, email, password });
-
     }
   }
 
-  useEffect(()=>{
-    if(isAuthenticated){
+  useEffect(() => {
+    if (isAuthenticated) {
       navigate("/dashboard");
     }
-  }, [isAuthenticated, navigate])
+  }, [isAuthenticated, navigate]);
 
   return (
     <>
