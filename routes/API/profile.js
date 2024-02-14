@@ -33,7 +33,7 @@ router.get("/me", auth, async (req, res) => {
 // @access  Private
 
 router.post(
-  "/",
+  "/me",
   [
     auth,
     [
@@ -76,8 +76,11 @@ router.post(
     if (githubusername) profileFields.githubusername = githubusername;
     // if skills is sent in request, set profileFields.skills to skills
     if (skills) {
-      // split skills into array
-      profileFields.skills = skills.split(",").map((skill) => skill.trim());
+      if (typeof skills === 'string') {
+        profileFields.skills = skills.split(",").map(skill => skill.trim());
+      } else if (Array.isArray(skills)) {
+        profileFields.skills = skills.map(skill => typeof skill === 'string' ? skill.trim() : skill);
+      }
     }
     profileFields.social = {};
     if (youtube) profileFields.social.youtube = youtube;
@@ -307,7 +310,7 @@ router.get("/github/:username", async (req, res) => {
     const clientID = config.get("githubClientID");
     const clientSecret = config.get("githubClientSecret");
 
-    const {data} = await axios.get(
+    const { data } = await axios.get(
       `https://api.github.com/users/${username}/repos`,
       {
         params: {

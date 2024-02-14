@@ -14,18 +14,28 @@ import { Dashboard } from "./components/dashboard/Dashboard";
 import { useEffect } from "react";
 import useAuth from "./hooks/useAuth";
 import setAuthToken from "./utils/setAuthToken";
+import useProfile from "./hooks/useProfile";
 import { PrivateRoute } from "./components/routing/PrivateRoute";
+import { CreateProfileRoute } from "./components/routing/CreateProfileRoute";
+import { CreateProfile } from "./components/layout/profileForm/CreateProfile";
+import { EditProfile } from "./components/layout/profileForm/EditProfile";
+import { AddEducation } from "./components/layout/profileForm/AddEducation";
+import { AddExperience } from "./components/layout/profileForm/AddExperience";
 
 const App = () => {
   const { loadUser } = useAuth();
-
-  if (localStorage.token) {
-    setAuthToken(localStorage.getItem("token"));
-  }
+  const { getProfile } = useProfile();
 
   useEffect(() => {
-    if (localStorage.token) {
-      loadUser();
+    try {
+      const token = localStorage.getItem("token");
+      if (token) {
+        setAuthToken(token);
+        loadUser();
+        getProfile();
+      }
+    } catch (error) {
+      console.error("Error accessing localStorage:", error);
     }
   }, []);
 
@@ -39,10 +49,36 @@ const App = () => {
           <Route exact path="/register" element={<Register />} />
           <Route exact path="/login" element={<Login />} />
           <Route
-            exact
             path="/dashboard"
-            element={<PrivateRoute element={<Dashboard />} />}
+            element={
+              <PrivateRoute>
+                <Dashboard />
+              </PrivateRoute>
+            }
           />
+          <Route
+            path="/create-profile"
+            element={
+              <CreateProfileRoute>
+                <CreateProfile />
+              </CreateProfileRoute>
+            }
+          />
+          <Route path="edit-profile" element={
+            <PrivateRoute>
+              <EditProfile />
+            </PrivateRoute>
+            }/>
+            <Route path="add-education" element={
+            <PrivateRoute>
+              <AddEducation />
+            </PrivateRoute>
+            } />
+            <Route path="add-experience" element={
+            <PrivateRoute>
+              <AddExperience />
+            </PrivateRoute>
+            } />
         </Routes>
       </section>
     </Router>

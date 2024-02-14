@@ -9,13 +9,15 @@ import {
   loginFail,
   logoutSuccess,
 } from "../redux/authSlices";
+import { clearProfileSuccess } from "../redux/profileSlices";
 import useAlert from "./useAlert";
-import { set } from "mongoose";
 import setAuthToken from "../utils/setAuthToken";
+import useProfile from "./useProfile";
 
 const useAuth = () => {
   const dispatch = useDispatch();
   const { showAlert } = useAlert();
+  const { getProfile } = useProfile();
 
   const register = async (newUser) => {
     try {
@@ -65,6 +67,7 @@ const useAuth = () => {
       const res = await axios.post("/api/auth", body, config);
       dispatch(loginSuccess(res.data));
       loadUser();
+      getProfile();
     } catch (error) {
       const errors = error.response.data.errors;
       console.error(errors);
@@ -80,6 +83,7 @@ const useAuth = () => {
 
   const logout = () => {
     dispatch(logoutSuccess());
+    dispatch(clearProfileSuccess());
   };
 
   return { register, loadUser, login, logout };
