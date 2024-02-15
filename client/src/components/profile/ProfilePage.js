@@ -8,16 +8,30 @@ import { ProfileHead } from "./ProfileHead";
 import { ProfileAbout } from "./ProfileAbout";
 import { ProfileExp } from "./ProfileExp";
 import { ProfileEdu } from "./ProfileEdu";
+import { ProfileGithub } from "./ProfileGithub";
 
 export const ProfilePage = () => {
   const { id } = useParams();
-  const { getProfileById } = useProfile();
+  const { getProfileById, getRepos } = useProfile();
 
   const profile = useSelector((state) => state.profile.profile);
+  const repos = useSelector((state) => state.profile.repos);
 
   useEffect(() => {
-    getProfileById(id);
+    const loadProfile = async () => {
+      await getProfileById(id);
+    };
+  
+    loadProfile();
   }, [id]);
+  
+  useEffect(() => {
+    if (profile?.githubusername) {
+      getRepos(profile.githubusername);
+    }
+  }, [profile?.githubusername]);
+
+
 
   if (profile === null) {
     return <div>Loading...</div>;
@@ -33,6 +47,8 @@ export const ProfilePage = () => {
             <ProfileExp profile={profile} />
             <ProfileEdu profile={profile} />
         </div>
+        {profile.githubusername && <ProfileGithub/>}
+        
     </>
   );
 };
