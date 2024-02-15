@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import useProfile from "../../../hooks/useProfile";
 import { useSelector } from "react-redux";
@@ -35,7 +35,7 @@ export const EditProfile = () => {
     instagram: instagram || '',
   });
 
-  const { createProfile, getProfile } = useProfile();
+  const { createProfile } = useProfile();
   const navigate = useNavigate();
 
   const onChange = (e) =>{

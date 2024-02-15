@@ -4,7 +4,6 @@ import { Landing } from "./components/layout/Landing";
 import {
   BrowserRouter as Router,
   Route,
-  Switch,
   Routes,
 } from "react-router-dom";
 import { Register } from "./components/auth/Register";
@@ -21,6 +20,8 @@ import { CreateProfile } from "./components/layout/profileForm/CreateProfile";
 import { EditProfile } from "./components/layout/profileForm/EditProfile";
 import { AddEducation } from "./components/layout/profileForm/AddEducation";
 import { AddExperience } from "./components/layout/profileForm/AddExperience";
+import { Profiles } from "./components/profile/Profiles";
+import { ProfilePage } from "./components/profile/ProfilePage";
 
 const App = () => {
   const { loadUser } = useAuth();
@@ -77,6 +78,14 @@ const App = () => {
             <Route path="add-experience" element={
             <PrivateRoute>
               <AddExperience />
+            </PrivateRoute>
+            } />
+            <Route path="profiles" element={
+            <Profiles />
+            } />
+            <Route path="profile/:id" element={
+            <PrivateRoute>
+              <ProfilePage/>
             </PrivateRoute>
             } />
         </Routes>

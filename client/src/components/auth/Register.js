@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import useAlert from "../../hooks/useAlert";
 import useAuth from "../../hooks/useAuth";
 import { useSelector } from "react-redux";
 
 export const Register = () => {
-  const { showAlert, hideAlert } = useAlert();
-  const { register, getUser } = useAuth();
+  const { showAlert } = useAlert();
+  const { register } = useAuth();
 
   const [formData, setFormData] = useState({
     name: "",

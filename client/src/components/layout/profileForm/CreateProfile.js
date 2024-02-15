@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import useProfile from "../../../hooks/useProfile";
-import { useSelector } from "react-redux";
 
 export const CreateProfile = () => {
   const [formData, setFormData] = useState({
@@ -34,9 +33,8 @@ export const CreateProfile = () => {
     instagram,
   } = formData;
 
-  const { createProfile, getProfile } = useProfile();
+  const { createProfile } = useProfile();
   const navigate = useNavigate();
-  const profile = useSelector((state) => state.profile.profile);
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
