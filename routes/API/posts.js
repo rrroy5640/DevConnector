@@ -136,7 +136,7 @@ router.put("/unlike/:id", auth, async (req, res) => {
   return res.json(post.likes);
 });
 
-// @route   POST api/posts/comment/:post_id
+// @route   PUT api/posts/comment/:post_id
 // @desc    comment on a post
 // @access  Private
 router.put(

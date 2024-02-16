@@ -22,6 +22,8 @@ import { AddEducation } from "./components/layout/profileForm/AddEducation";
 import { AddExperience } from "./components/layout/profileForm/AddExperience";
 import { Profiles } from "./components/profile/Profiles";
 import { ProfilePage } from "./components/profile/ProfilePage";
+import { Posts } from "./components/post/Posts";
+import { Post } from "./components/post/Post";
 
 const App = () => {
   const { loadUser } = useAuth();
@@ -86,6 +88,16 @@ const App = () => {
             <Route path="profile/:id" element={
             <PrivateRoute>
               <ProfilePage/>
+            </PrivateRoute>
+            } />
+            <Route path="posts" element={
+            <PrivateRoute>
+              <Posts />
+            </PrivateRoute>
+            } />
+            <Route path="post/:id" element={
+            <PrivateRoute>
+              <Post />
             </PrivateRoute>
             } />
         </Routes>

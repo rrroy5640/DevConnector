@@ -14,6 +14,9 @@ export const Navbar = () => {
         <Link to="/dashboard">Dashboard</Link>
       </li>
       <li>
+        <Link to="/posts">Posts</Link>
+      </li>
+      <li>
         <Link to="/profiles">Developers</Link>
         <Link to="/" onClick={logout}> Logout </Link>
       </li>
@@ -25,6 +28,7 @@ export const Navbar = () => {
       <li>
         <a href="#!">Developers</a>
       </li>
+
       <li>
         <Link to="/register">Register</Link>
       </li>
